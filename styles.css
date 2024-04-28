@@ -1,0 +1,81 @@
+* {
+  box-sizing: border-box;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  border: 1px solid black;
+  border-radius: 50px;
+  width: 400px;
+  height: 600px;
+  background-color: rgb(185, 239, 185);
+  box-shadow: 0px 0px 25px rgb(233, 83, 8);
+  padding: 25px;
+}
+
+#display {
+  /* font-size: 20px;
+  font-weight: 699; */
+  text-align: center;
+  background-color: aliceblue;
+  border: 1px solid black;
+  margin-top: 35px;
+  margin-bottom: 50px;
+  padding: 15px;
+  height: 70px;
+}
+
+#numberField {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgb(222, 49, 49);
+  height: auto;
+  
+}
+
+#row {
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid rgb(235, 134, 134);
+}
+
+button {
+  /* flex-grow: 1; */
+  margin: 5px;
+  border: none;
+  border-radius: 30%;
+  min-width: 54px;
+  min-height: 60px;
+}
+
+button:hover {
+  /* margin: 0; */
+  transform: scale(1);
+  border: 3px solid rgb(235, 71, 7);
+  /* background-color: aliceblue; */
+}
+
+button:active {
+  background-color: rgb(244, 224, 158);
+}
+
+button#gleich {
+  background-color: rgb(243, 194, 36);
+}
+
+button#gleich:active {
+  background-color: rgb(240, 96, 173);
+}
+
+
