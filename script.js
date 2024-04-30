@@ -4,8 +4,8 @@ const numberField = document.querySelector('#numberField');
 const oppDisplay = document.querySelector('#opp');
 const resultDisplay = document.querySelector('#result');
 const container = document.querySelector('.container');
-let memory = 0;
-let indexColor = 0;
+let memoryValue = 0;   // memorystorage in calculator
+let indexColor = 0;  // index for colorchanger
 
 numberField.addEventListener(('click'), event => {
     if (event.target.tagName === 'BUTTON') {
@@ -14,10 +14,17 @@ numberField.addEventListener(('click'), event => {
     };
 });
 
+window.addEventListener('keydown', (e) => {
+    const key = document.querySelector(`button[data-value='${e.key}']`);
+    if (key) {
+        key.click();
+    }
+});
+
 
 
 function processInput(buttonValue) {
-    if (buttonValue !== '$gleich') {
+    if (buttonValue !== 'Enter') {
         outputInput(buttonValue);
         return
     }
@@ -30,44 +37,53 @@ function outputInput(buttonValue) {
     let oppDisplayText = oppDisplay.textContent;
 
     // delete old result if more input
-    if (oppDisplayText !== '=' && buttonValue !== 'M+' && buttonValue !== 'M-')
+    if (oppDisplayText !== '=' && buttonValue !== 'Memory+' && buttonValue !== 'Memory-')
         resultDisplay.textContent = '=';
 
     // if input isNaN
     if (isNaN(buttonValue)) {
+        //check if last input was '-' for making a number negativ, so number is expected
+        if (buttonValue.length < 3 && oppDisplayText.slice(-1) === '-')
+            return;
+
         switch (buttonValue) {
-            case "del":
+            case "Delete":
                 oppDisplay.textContent = '';
                 resultDisplay.textContent = '=';
+                kommaCheck = false;
                 break;
-            case "back":
+            case "Backspace":
                 if (oppDisplayText.slice(-1) === ' ') {
                     oppDisplay.textContent = oppDisplayText.slice(0, -3);
                     break;
                 }
+                if (oppDisplayText.slice(-1) === ',')
+                    kommaCheck = false;
                 oppDisplay.textContent = oppDisplayText.slice(0, -1);
                 resultDisplay.textContent = '=';
                 break;
-            case "Mdel":
-                memory = 0;
+            case "MemoryDel":
+                memoryValue = 0;
                 break;
-            case "M":
-                oppDisplay.textContent += memory;
+            case "Memory":
+                if (oppDisplayText.slice(-1) === '' || oppDisplayText.slice(-1) === ' ' || oppDisplayText.slice(-1) === '-')
+                    oppDisplay.textContent += memoryValue;
                 break;
-            case "M+":
+            case "Memory+":
                 if (resultDisplay.textContent !== "=")
-                    memory += memory + Number(resultDisplay.textContent);
+                    memoryValue += Number(resultDisplay.textContent);
                 break;
-            case "M-":
+            case "Memory-":
                 if (resultDisplay.textContent !== "=")
-                    memory += memory - Number(resultDisplay.textContent);
+                    memoryValue -= Number(resultDisplay.textContent);
                 break;
             case "-":
-                if (oppDisplayText === '' || oppDisplayText.slice(-1) === ' ') {
+                if (oppDisplayText === '' || (oppDisplayText.slice(-1) === ' ')) {
                     oppDisplay.textContent += '-'
                     break;
                 }
                 oppDisplay.textContent += ' - ';
+                kommaCheck = false;
                 break;
             case "color":
                 let remove = indexColor;
@@ -78,8 +94,9 @@ function outputInput(buttonValue) {
                 container.classList.remove(`colored${remove}`);
                 break;
             case ",":
-                if (oppDisplayText === '' || oppDisplayText.slice(-1) === ' ')
+                if (oppDisplayText === '' || oppDisplayText.slice(-1) === ' ' || kommaCheck)
                     break;
+                kommaCheck = true;
                 oppDisplay.textContent += ',';
                 break;
             default:
@@ -87,6 +104,7 @@ function outputInput(buttonValue) {
                 if (oppDisplayText === '')
                     break;
                 // check if last char a ' ', then last input was operation and should be overwritten
+                kommaCheck = false;
                 if (oppDisplayText.slice(-1) === ' ') {
                     oppDisplay.textContent = `${oppDisplayText.slice(0, -3)} ${buttonValue} `;
                 } else

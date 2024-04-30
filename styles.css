@@ -41,22 +41,27 @@ body {
   flex-direction: column;
   /* align-items: center; */
   background-color: aliceblue;
+  border-radius: 8px;
   border: 1px solid black;
-  margin-top: 35px;
-  margin-bottom: 50px;
+  margin-top: 25px;
+  margin-bottom: 45px;
   padding: 10px;
-  height: 74px;
+  height: 93px;
+  overflow: auto;
+  white-space: nowrap;
 }
 
 #opp {
   text-align: center;
   color: rgb(77, 75, 75);
   height: 50%;
+  font-size: 25px;
+  
 }
 
 #result {
   color: blue;
-  font-size: 25px;
+  font-size: 30px;
   text-align: right;
   font-weight: 800;
 }
@@ -66,6 +71,8 @@ body {
   flex-direction: column;
   border: 1px solid rgb(222, 49, 49);
   height: auto;
+  cursor: pointer;
+  border-radius: 10px;
 }
 
 #row {
@@ -73,6 +80,7 @@ body {
   display: flex;
   justify-content: space-between;
   border: 1px solid rgb(235, 134, 134);
+  border-radius: 10px;
 }
 
 button {
@@ -82,24 +90,24 @@ button {
   border-radius: 30%;
   min-width: 54px;
   min-height: 60px;
+  transition: 50ms;
 }
 
 button:hover {
-  /* margin: 0; */
   transform: scale(1);
   border: 3px solid rgb(235, 71, 7);
-  /* background-color: aliceblue; */
+  cursor: pointer;
 }
 
 button:active {
   background-color: rgb(244, 224, 158);
 }
 
-button#gleich {
+button#enter {
   background-color: rgb(243, 194, 36);
 }
 
-button#gleich:active {
+button#enter:active {
   background-color: rgb(235, 85, 9);
 }
 
